@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Download – SoundWave</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="js/tailwind-config.js"></script>
+  <link rel="stylesheet" href="css/login.css">
+</head>
+
+<body class="dark:bg-[#121212] bg-gray-100 dark:text-white text-gray-900 min-h-screen flex flex-col">
+
+  <!-- ─── Theme Toggle (top right) ─── -->
+  <div class="fixed top-4 right-4 z-50">
+    <button onclick="toggleTheme()"
+      class="dark:bg-[#282828] bg-white border dark:border-gray-700 border-gray-300 rounded-full w-10 h-10 flex items-center justify-center hover:scale-110 shadow-md"
+      title="Toggle theme">
+      <span id="theme-icon">☀️</span>
+    </button>
+  </div>
+
+  <!-- ─── Main Centered Content ─── -->
+  <main class="flex-1 flex flex-col items-center justify-center px-4 py-12">
+
+    <!-- Logo -->
+    <a href="index.html" class="flex items-center gap-2 mb-8 group">
+      <span class="text-4xl group-hover:scale-110 inline-block transition-transform">🎵</span>
+      <span class="text-2xl font-bold text-brand">SoundWave</span>
+    </a>
+
+    <!-- Title -->
+    <h1 class="text-3xl font-bold text-center mb-2">Download SoundWave</h1>
+    <p class="dark:text-gray-400 text-gray-500 text-center mb-10">Listen everywhere. Available on all your devices.</p>
+
+    <!-- Download Cards Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl mb-12">
+
+      <!-- Desktop -->
+      <div class="dark:bg-[#242424] bg-white rounded-2xl shadow-2xl px-6 py-8 flex flex-col items-center text-center">
+        <span class="text-5xl mb-4">🖥️</span>
+        <h2 class="text-xl font-bold mb-1">Desktop</h2>
+        <p class="text-sm dark:text-gray-400 text-gray-500 mb-1">Windows &amp; macOS</p>
+        <p class="text-sm dark:text-gray-400 text-gray-500 mb-6">Get the desktop app for the best listening experience</p>
+        <a href="#"
+          class="mt-auto w-full bg-brand text-black font-bold py-3 rounded-full text-sm text-center
+            hover:scale-[1.02] hover:brightness-110 active:scale-100 transition-all duration-200 inline-block">
+          Download
+        </a>
+      </div>
+
+      <!-- Mobile -->
+      <div class="dark:bg-[#242424] bg-white rounded-2xl shadow-2xl px-6 py-8 flex flex-col items-center text-center">
+        <span class="text-5xl mb-4">📱</span>
+        <h2 class="text-xl font-bold mb-1">Mobile</h2>
+        <p class="text-sm dark:text-gray-400 text-gray-500 mb-1">iOS &amp; Android</p>
+        <p class="text-sm dark:text-gray-400 text-gray-500 mb-6">Take your music with you on the go</p>
+        <a href="#"
+          class="mt-auto w-full bg-brand text-black font-bold py-3 rounded-full text-sm text-center
+            hover:scale-[1.02] hover:brightness-110 active:scale-100 transition-all duration-200 inline-block">
+          Download
+        </a>
+      </div>
+
+      <!-- Web Player -->
+      <div class="dark:bg-[#242424] bg-white rounded-2xl shadow-2xl px-6 py-8 flex flex-col items-center text-center">
+        <span class="text-5xl mb-4">🌐</span>
+        <h2 class="text-xl font-bold mb-1">Web Player</h2>
+        <p class="text-sm dark:text-gray-400 text-gray-500 mb-1">Any browser</p>
+        <p class="text-sm dark:text-gray-400 text-gray-500 mb-6">Listen instantly without downloading anything</p>
+        <a href="index.html"
+          class="mt-auto w-full bg-brand text-black font-bold py-3 rounded-full text-sm text-center
+            hover:scale-[1.02] hover:brightness-110 active:scale-100 transition-all duration-200 inline-block">
+          Open Web Player
+        </a>
+      </div>
+
+    </div>
+
+    <!-- System Requirements -->
+    <div class="w-full max-w-4xl dark:bg-[#242424] bg-white rounded-2xl shadow-2xl px-8 py-8">
+      <h2 class="text-xl font-bold mb-4">System Requirements</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+        <div class="flex items-start gap-2">
+          <span class="font-semibold">Windows:</span>
+          <span class="dark:text-gray-400 text-gray-500">Windows 10 or later</span>
+        </div>
+        <div class="flex items-start gap-2">
+          <span class="font-semibold">macOS:</span>
+          <span class="dark:text-gray-400 text-gray-500">macOS 10.14 or later</span>
+        </div>
+        <div class="flex items-start gap-2">
+          <span class="font-semibold">iOS:</span>
+          <span class="dark:text-gray-400 text-gray-500">iOS 15.0 or later</span>
+        </div>
+        <div class="flex items-start gap-2">
+          <span class="font-semibold">Android:</span>
+          <span class="dark:text-gray-400 text-gray-500">Android 8.0 or later</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Back to Home -->
+    <a href="index.html" class="mt-8 text-sm dark:text-gray-400 text-gray-500 underline hover:text-brand transition-colors">
+      ← Back to Home
+    </a>
+
+  </main>
+
+  <!-- ─── JavaScript ─── -->
+  <script src="js/download.js"></script>
+</body>
+</html>

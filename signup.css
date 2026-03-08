@@ -1,0 +1,17 @@
+/* Smooth theme transitions */
+*, *::before, *::after {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-duration: 300ms;
+  transition-timing-function: ease;
+}
+
+/* Social button hover lift */
+.social-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+
+/* Input focus glow */
+.sw-input:focus { outline: none; border-color: #fff; box-shadow: 0 0 0 2px rgba(255,255,255,0.1); }
+.light .sw-input:focus { border-color: #1DB954; box-shadow: 0 0 0 2px rgba(29,185,84,0.2); }
+
+/* Password eye button */
+.eye-btn { transition: opacity 0.2s ease; }
+.eye-btn:hover { opacity: 0.8; }

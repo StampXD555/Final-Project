@@ -1,0 +1,38 @@
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #535353; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #b3b3b3; }
+
+/* Horizontal scroll hide scrollbar visually but keep functional */
+.scroll-x { scrollbar-width: thin; scrollbar-color: #535353 transparent; }
+
+/* Progress bar */
+input[type="range"] { -webkit-appearance: none; appearance: none; height: 4px; border-radius: 2px; outline: none; cursor: pointer; }
+input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 12px; height: 12px; border-radius: 50%; background: #fff; cursor: pointer; }
+input[type="range"].volume::-webkit-slider-thumb { background: #1DB954; }
+
+/* Smooth transition for theme */
+*, *::before, *::after { transition-property: background-color, border-color, color; transition-duration: 300ms; transition-timing-function: ease; }
+/* But not transforms/opacity for perf */
+img, button, a, .no-transition { transition: all 0.3s ease; }
+
+/* Song card hover play overlay */
+.song-card:hover .play-overlay { opacity: 1; transform: translateY(0); }
+.play-overlay { opacity: 0; transform: translateY(8px); transition: all 0.2s ease; }
+
+/* Artist card */
+.artist-card:hover .artist-play { opacity: 1; }
+.artist-play { opacity: 0; transition: opacity 0.2s ease; }
+
+/* Bottom player progress */
+#progress-bar { background: linear-gradient(to right, #1DB954 0%, #535353 0%); }
+
+/* Mobile nav dropdown */
+#mobile-menu { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+#mobile-menu.open { max-height: 400px; }
+
+/* Sidebar hidden on mobile by default */
+@media (max-width: 1023px) {
+  #sidebar { display: none; }
+}

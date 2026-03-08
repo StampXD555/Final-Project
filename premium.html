@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SoundWave – Music for Everyone</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="js/tailwind-config.js"></script>
+  <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body class="dark:bg-[#121212] bg-gray-100 dark:text-white text-gray-900 font-sans min-h-screen flex flex-col">
+
+  <!-- ═══════════════════════════ TOP NAVBAR ═══════════════════════════ -->
+  <nav class="fixed top-0 left-0 right-0 z-50 dark:bg-black bg-white shadow-md px-4 py-3">
+    <div class="flex items-center justify-between max-w-screen-2xl mx-auto">
+
+      <!-- Logo -->
+      <a href="index.html" class="flex items-center gap-2 font-bold text-xl text-brand shrink-0">
+        <span class="text-2xl">🎵</span>
+        <span class="hidden sm:inline">SoundWave</span>
+      </a>
+
+      <!-- Center: Home + Search -->
+      <div class="flex items-center gap-3 flex-1 max-w-xl mx-4">
+        <button class="dark:bg-[#282828] bg-gray-200 rounded-full p-2 hover:scale-105" title="Home">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+          </svg>
+        </button>
+        <div class="relative flex-1">
+          <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+          </svg>
+          <input id="search-input" type="text" placeholder="What do you want to listen to?"
+            class="w-full pl-10 pr-4 py-2 rounded-full dark:bg-[#242424] bg-gray-200 dark:text-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white text-sm"
+          />
+        </div>
+      </div>
+
+      <!-- Right nav links (desktop) -->
+      <div class="hidden lg:flex items-center gap-4 text-sm font-semibold shrink-0">
+        <a href="premium.html" class="dark:text-gray-300 text-gray-600 hover:text-brand">Premium</a>
+        <a href="support.html" class="dark:text-gray-300 text-gray-600 hover:text-brand">Support</a>
+        <a href="download.html" class="dark:text-gray-300 text-gray-600 hover:text-brand">Download</a>
+        <span class="dark:text-gray-600 text-gray-300">|</span>
+        <a href="#" class="dark:text-gray-300 text-gray-600 hover:text-brand">Install App</a>
+        <a href="signup.html" class="border border-gray-400 dark:border-gray-500 px-4 py-1.5 rounded-full hover:border-white hover:scale-105">Sign up</a>
+        <a href="login.html" class="bg-white text-black px-5 py-1.5 rounded-full font-bold hover:scale-105 hover:bg-gray-200">Log in</a>
+        <!-- Theme Toggle -->
+        <button id="theme-btn" onclick="toggleTheme()" class="dark:bg-[#282828] bg-gray-200 rounded-full p-2 hover:scale-110" title="Toggle theme">
+          <span id="theme-icon">☀️</span>
+        </button>
+      </div>
+
+      <!-- Mobile: theme + hamburger -->
+      <div class="flex lg:hidden items-center gap-2">
+        <button onclick="toggleTheme()" class="dark:bg-[#282828] bg-gray-200 rounded-full p-2">
+          <span id="theme-icon-mobile">☀️</span>
+        </button>
+        <button id="hamburger" onclick="toggleMobileMenu()" class="dark:bg-[#282828] bg-gray-200 rounded-full p-2">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobile-menu" class="lg:hidden overflow-hidden">
+      <div class="pt-3 pb-2 px-2 flex flex-col gap-2 text-sm font-semibold border-t dark:border-gray-800 border-gray-200 mt-3">
+        <a href="#" class="py-2 px-3 rounded-lg hover:dark:bg-[#282828] hover:bg-gray-200">🏠 Home</a>
+        <a href="premium.html" class="py-2 px-3 rounded-lg hover:dark:bg-[#282828] hover:bg-gray-200">💎 Premium</a>
+        <a href="support.html" class="py-2 px-3 rounded-lg hover:dark:bg-[#282828] hover:bg-gray-200">❓ Support</a>
+        <a href="download.html" class="py-2 px-3 rounded-lg hover:dark:bg-[#282828] hover:bg-gray-200">⬇️ Download</a>
+        <div class="border-t dark:border-gray-700 border-gray-300 my-1"></div>
+        <a href="signup.html" class="py-2 px-3 rounded-lg border dark:border-gray-500 border-gray-400 text-center">Sign up</a>
+        <a href="login.html" class="py-2 px-3 rounded-lg bg-white text-black text-center font-bold">Log in</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════ LAYOUT WRAPPER ═══════════════════════════ -->
+  <div class="flex flex-1 pt-[64px] pb-[90px]">
+
+    <!-- ═══════════════════════════ LEFT SIDEBAR ═══════════════════════════ -->
+    <aside id="sidebar" class="fixed left-0 top-[64px] bottom-[90px] w-64 dark:bg-black bg-white flex flex-col overflow-y-auto z-30 lg:block">
+
+      <!-- Your Library header -->
+      <div class="flex items-center justify-between px-4 pt-4 pb-2">
+        <button class="flex items-center gap-2 font-bold text-sm dark:text-gray-300 text-gray-700 hover:text-brand">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/>
+          </svg>
+          Your Library
+        </button>
+        <button class="dark:bg-[#282828] bg-gray-100 rounded-full p-1.5 hover:bg-brand hover:text-black" title="Create playlist">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M19 13H13v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Search / filter -->
+      <div class="px-4 pb-3">
+        <div class="relative">
+          <svg class="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+          </svg>
+          <input type="text" placeholder="Search in Your Library"
+            class="w-full pl-8 pr-3 py-1.5 rounded-md dark:bg-[#242424] bg-gray-100 placeholder-gray-500 text-xs focus:outline-none focus:ring-1 focus:ring-brand"
+          />
+        </div>
+      </div>
+
+      <!-- Library items placeholder -->
+      <div class="px-3 space-y-1 flex-1">
+        <!-- Promo card 1 -->
+        <div class="dark:bg-[#242424] bg-gray-100 rounded-xl p-4 mb-3">
+          <p class="font-bold text-sm mb-1">Create your first playlist</p>
+          <p class="text-xs dark:text-gray-400 text-gray-500 mb-3">It's easy, we'll help you</p>
+          <button class="bg-white text-black text-xs font-bold px-4 py-1.5 rounded-full hover:scale-105">Create playlist</button>
+        </div>
+
+        <!-- Promo card 2 -->
+        <div class="dark:bg-[#242424] bg-gray-100 rounded-xl p-4">
+          <p class="font-bold text-sm mb-1">Let's find some podcasts to follow</p>
+          <p class="text-xs dark:text-gray-400 text-gray-500 mb-3">We'll keep you updated on new episodes</p>
+          <button class="bg-white text-black text-xs font-bold px-4 py-1.5 rounded-full hover:scale-105">Browse podcasts</button>
+        </div>
+      </div>
+
+      <!-- Sidebar footer -->
+      <div class="px-4 py-4 mt-auto">
+        <div class="flex flex-wrap gap-x-3 gap-y-1 text-xs dark:text-gray-500 text-gray-400 mb-3">
+          <a href="#" class="hover:text-white">Legal</a>
+          <a href="#" class="hover:text-white">Privacy</a>
+          <a href="#" class="hover:text-white">Cookies</a>
+          <a href="#" class="hover:text-white">About Ads</a>
+          <a href="#" class="hover:text-white">Accessibility</a>
+        </div>
+        <!-- Language selector -->
+        <select class="border dark:border-gray-600 border-gray-300 dark:bg-transparent bg-white text-xs px-3 py-1.5 rounded-full dark:text-white text-gray-700 focus:outline-none focus:ring-1 focus:ring-brand">
+          <option>🌐 English</option>
+          <option>🇹🇭 ภาษาไทย</option>
+          <option>🇯🇵 日本語</option>
+          <option>🇰🇷 한국어</option>
+          <option>🇪🇸 Español</option>
+        </select>
+      </div>
+    </aside>
+
+    <!-- ═══════════════════════════ MAIN CONTENT ═══════════════════════════ -->
+    <main class="flex-1 lg:ml-64 px-4 md:px-6 py-6 overflow-y-auto max-w-full">
+
+      <!-- Greeting -->
+      <div class="mb-6">
+        <h1 class="text-2xl font-bold">Good evening 👋</h1>
+      </div>
+
+      <!-- ─── TRENDING SONGS ─── -->
+      <section class="mb-10">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-xl font-bold">Trending Songs</h2>
+          <a href="#" class="text-xs font-bold dark:text-gray-400 text-gray-500 hover:text-brand hover:underline uppercase tracking-wider">Show all</a>
+        </div>
+
+        <!-- Horizontal scrollable row -->
+        <div id="trending-scroll" class="flex gap-4 overflow-x-auto scroll-x pb-3">
+
+          <!-- Song Cards (6) -->
+          <div class="song-card cursor-pointer shrink-0 w-40 dark:bg-[#181818] bg-white rounded-xl p-3 hover:dark:bg-[#282828] hover:bg-gray-100" onclick="playTrack(0)">
+            <div class="relative rounded-lg overflow-hidden mb-3">
+              <img src="https://picsum.photos/200?random=1" alt="ทั้งไป" class="w-full aspect-square object-cover"/>
+              <div class="play-overlay absolute bottom-2 right-2">
+                <button class="bg-brand text-black rounded-full p-2 shadow-lg hover:scale-110">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                </button>
+              </div>
+            </div>
+            <p class="font-bold text-sm truncate">ทั้งไป</p>
+            <p class="text-xs dark:text-gray-400 text-gray-500 truncate">Only Monday</p>
+          </div>
+
+          <div class="song-card cursor-pointer shrink-0 w-40 dark:bg-[#181818] bg-white rounded-xl p-3 hover:dark:bg-[#282828] hover:bg-gray-100" onclick="playTrack(1)">
+            <div class="relative rounded-lg overflow-hidden mb-3">
+              <img src="https://picsum.photos/200?random=2" alt="Rain Zone" class="w-full aspect-square object-cover"/>
+              <div class="play-overlay absolute bottom-2 right-2">
+                <button class="bg-brand text-black rounded-full p-2 shadow-lg hover:scale-110">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                </button>
+              </div>
+            </div>
+            <p class="font-bold text-sm truncate">Rain Zone</p>
+            <p class="text-xs dark:text-gray-400 text-gray-500 truncate">Maiyarap, Z9</p>
+          </div>
+
+          <div class="song-card cursor-pointer shrink-0 w-40 dark:bg-[#181818] bg-white rounded-xl p-3 hover:dark:bg-[#282828] hover:bg-gray-100" onclick="playTrack(2)">
+            <div class="relative rounded-lg overflow-hidden mb-3">
+              <img src="https://picsum.photos/200?random=3" alt="Risk It All" class="w-full aspect-square object-cover"/>
+              <div class="play-overlay absolute bottom-2 right-2">
+                <button class="bg-brand text-black rounded-full p-2 shadow-lg hover:scale-110">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                </button>
+              </div>
+            </div>
+            <p class="font-bold text-sm truncate">Risk It All</p>
+            <p class="text-xs dark:text-gray-400 text-gray-500 truncate">Bruno Mars</p>
+          </div>
+
+          <div class="song-card cursor-pointer shrink-0 w-40 dark:bg-[#181818] bg-white rounded-xl p-3 hover:dark:bg-[#282828] hover:bg-gray-100" onclick="playTrack(3)">
+            <div class="relative rounded-lg overflow-hidden mb-3">
+              <img src="https://picsum.photos/200?random=4" alt="เหนื่อยเกินไป" class="w-full aspect-square object-cover"/>
+              <div class="play-overlay absolute bottom-2 right-2">
+                <button class="bg-brand text-black rounded-full p-2 shadow-lg hover:scale-110">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                </button>
+              </div>
+            </div>
+            <p class="font-bold text-sm truncate">เหนื่อยเกินไป</p>
+            <p class="text-xs dark:text-gray-400 text-gray-500 truncate">LITTLE JOHN</p>
+          </div>
+
+          <div class="song-card cursor-pointer shrink-0 w-40 dark:bg-[#181818] bg-white rounded-xl p-3 hover:dark:bg-[#282828] hover:bg-gray-100" onclick="playTrack(4)">
+            <div class="relative rounded-lg overflow-hidden mb-3">
+              <img src="https://picsum.photos/200?random=5" alt="ขอให้เราทั้งคู่โชคดี" class="w-full aspect-square object-cover"/>
+              <div class="play-overlay absolute bottom-2 right-2">
+                <button class="bg-brand text-black rounded-full p-2 shadow-lg hover:scale-110">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                </button>
+              </div>
+            </div>
+            <p class="font-bold text-sm truncate">ขอให้เราทั้งคู่โชคดี</p>
+            <p class="text-xs dark:text-gray-400 text-gray-500 truncate">Tattoo Colour</p>
+          </div>
+
+          <div class="song-card cursor-pointer shrink-0 w-40 dark:bg-[#181818] bg-white rounded-xl p-3 hover:dark:bg-[#282828] hover:bg-gray-100" onclick="playTrack(5)">
+            <div class="relative rounded-lg overflow-hidden mb-3">
+              <img src="https://picsum.photos/200?random=6" alt="GO" class="w-full aspect-square object-cover"/>
+              <div class="play-overlay absolute bottom-2 right-2">
+                <button class="bg-brand text-black rounded-full p-2 shadow-lg hover:scale-110">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                </button>
+              </div>
+            </div>
+            <p class="font-bold text-sm truncate">GO</p>
+            <p class="text-xs dark:text-gray-400 text-gray-500 truncate">BLACKPINK</p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ─── POPULAR ARTISTS ─── -->
+      <section class="mb-10">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-xl font-bold">Popular Artists</h2>
+          <a href="#" class="text-xs font-bold dark:text-gray-400 text-gray-500 hover:text-brand hover:underline uppercase tracking-wider">Show all</a>
+        </div>
+
+        <div id="artists-scroll" class="flex gap-6 overflow-x-auto scroll-x pb-3">
+
+          <!-- Artist Cards (6) -->
+          <div class="artist-card cursor-pointer shrink-0 w-36 dark:bg-[#181818] bg-white rounded-xl p-3 text-center hover:dark:bg-[#282828] hover:bg-gray-100">
+            <div class="relative mx-auto w-24 h-24 mb-3">
+              <img src="https://picsum.photos/200?random=7" alt="Only Monday" class="w-24 h-24 rounded-full object-cover"/>
+              <button class="artist-play absolute bottom-0 right-0 bg-brand text-black rounded-full p-2 shadow-lg hover:scale-110">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              </button>
+            </div>
+            <p class="font-bold text-sm truncate">Only Monday</p>
+            <p class="text-xs dark:text-gray-400 text-gray-500">Artist</p>
+          </div>
+
+          <div class="artist-card cursor-pointer shrink-0 w-36 dark:bg-[#181818] bg-white rounded-xl p-3 text-center hover:dark:bg-[#282828] hover:bg-gray-100">
+            <div class="relative mx-auto w-24 h-24 mb-3">
+              <img src="https://picsum.photos/200?random=8" alt="Maiyarap" class="w-24 h-24 rounded-full object-cover"/>
+              <button class="artist-play absolute bottom-0 right-0 bg-brand text-black rounded-full p-2 shadow-lg hover:scale-110">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              </button>
+            </div>
+            <p class="font-bold text-sm truncate">Maiyarap</p>
+            <p class="text-xs dark:text-gray-400 text-gray-500">Artist</p>
+          </div>
+
+          <div class="artist-card cursor-pointer shrink-0 w-36 dark:bg-[#181818] bg-white rounded-xl p-3 text-center hover:dark:bg-[#282828] hover:bg-gray-100">
+            <div class="relative mx-auto w-24 h-24 mb-3">
+              <img src="https://picsum.photos/200?random=9" alt="Bruno Mars" class="w-24 h-24 rounded-full object-cover"/>
+              <button class="artist-play absolute bottom-0 right-0 bg-brand text-black rounded-full p-2 shadow-lg hover:scale-110">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              </button>
+            </div>
+            <p class="font-bold text-sm truncate">Bruno Mars</p>
+            <p class="text-xs dark:text-gray-400 text-gray-500">Artist</p>
+          </div>
+
+          <div class="artist-card cursor-pointer shrink-0 w-36 dark:bg-[#181818] bg-white rounded-xl p-3 text-center hover:dark:bg-[#282828] hover:bg-gray-100">
+            <div class="relative mx-auto w-24 h-24 mb-3">
+              <img src="https://picsum.photos/200?random=10" alt="LITTLE JOHN" class="w-24 h-24 rounded-full object-cover"/>
+              <button class="artist-play absolute bottom-0 right-0 bg-brand text-black rounded-full p-2 shadow-lg hover:scale-110">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              </button>
+            </div>
+            <p class="font-bold text-sm truncate">LITTLE JOHN</p>
+            <p class="text-xs dark:text-gray-400 text-gray-500">Artist</p>
+          </div>
+
+          <div class="artist-card cursor-pointer shrink-0 w-36 dark:bg-[#181818] bg-white rounded-xl p-3 text-center hover:dark:bg-[#282828] hover:bg-gray-100">
+            <div class="relative mx-auto w-24 h-24 mb-3">
+              <img src="https://picsum.photos/200?random=11" alt="Tattoo Colour" class="w-24 h-24 rounded-full object-cover"/>
+              <button class="artist-play absolute bottom-0 right-0 bg-brand text-black rounded-full p-2 shadow-lg hover:scale-110">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              </button>
+            </div>
+            <p class="font-bold text-sm truncate">Tattoo Colour</p>
+            <p class="text-xs dark:text-gray-400 text-gray-500">Artist</p>
+          </div>
+
+          <div class="artist-card cursor-pointer shrink-0 w-36 dark:bg-[#181818] bg-white rounded-xl p-3 text-center hover:dark:bg-[#282828] hover:bg-gray-100">
+            <div class="relative mx-auto w-24 h-24 mb-3">
+              <img src="https://picsum.photos/200?random=12" alt="BLACKPINK" class="w-24 h-24 rounded-full object-cover"/>
+              <button class="artist-play absolute bottom-0 right-0 bg-brand text-black rounded-full p-2 shadow-lg hover:scale-110">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              </button>
+            </div>
+            <p class="font-bold text-sm truncate">BLACKPINK</p>
+            <p class="text-xs dark:text-gray-400 text-gray-500">Artist</p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ─── POPULAR SONGS LIST TABLE ─── -->
+      <section class="mb-10">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-xl font-bold">Popular Songs</h2>
+          <a href="#" class="text-xs font-bold dark:text-gray-400 text-gray-500 hover:text-brand hover:underline uppercase tracking-wider">Show all</a>
+        </div>
+
+        <div class="dark:bg-[#181818] bg-white rounded-xl overflow-hidden">
+          <!-- Table header -->
+          <div class="grid grid-cols-[40px_1fr_1fr_80px] md:grid-cols-[40px_1fr_1fr_1fr_80px] gap-3 px-4 py-2 border-b dark:border-gray-800 border-gray-200 text-xs font-semibold dark:text-gray-400 text-gray-500 uppercase tracking-wider">
+            <span class="text-center">#</span>
+            <span>Title</span>
+            <span class="hidden md:block">Album</span>
+            <span class="hidden md:block"></span>
+            <span class="text-right">⏱</span>
+          </div>
+
+          <!-- Table body -->
+          <div id="song-table-body">
+            <!-- Rows injected by JS -->
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ═══════════════════════════ BOTTOM MUSIC PLAYER ═══════════════════════════ -->
+  <div class="fixed bottom-0 left-0 right-0 z-50 dark:bg-[#181818] bg-white border-t dark:border-gray-800 border-gray-200 px-4 py-3">
+    <div class="flex items-center justify-between max-w-screen-2xl mx-auto gap-4">
+
+      <!-- Left: current track info -->
+      <div class="flex items-center gap-3 w-48 md:w-56 shrink-0">
+        <img id="player-thumb" src="https://picsum.photos/200?random=1" alt="Now Playing"
+          class="w-12 h-12 rounded-md object-cover"/>
+        <div class="min-w-0">
+          <p id="player-title" class="font-semibold text-sm truncate">ทั้งไป</p>
+          <p id="player-artist" class="text-xs dark:text-gray-400 text-gray-500 truncate">Only Monday</p>
+        </div>
+        <button id="heart-btn" onclick="toggleHeart()" class="dark:text-gray-400 text-gray-400 hover:text-brand ml-1 hidden sm:block" title="Like">
+          <svg id="heart-icon" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Center: controls + progress -->
+      <div class="flex flex-col items-center gap-1 flex-1 max-w-xl">
+        <!-- Control buttons -->
+        <div class="flex items-center gap-4">
+          <button class="dark:text-gray-400 text-gray-400 hover:dark:text-white hover:text-black" title="Shuffle">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"/>
+            </svg>
+          </button>
+          <button onclick="prevTrack()" class="dark:text-gray-300 text-gray-600 hover:dark:text-white hover:text-black" title="Previous">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+          </button>
+          <button id="play-btn" onclick="togglePlay()"
+            class="bg-white dark:bg-white text-black rounded-full p-2 hover:scale-110 shadow-md" title="Play/Pause">
+            <svg id="play-icon" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+          <button onclick="nextTrack()" class="dark:text-gray-300 text-gray-600 hover:dark:text-white hover:text-black" title="Next">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+          </button>
+          <button class="dark:text-gray-400 text-gray-400 hover:dark:text-white hover:text-black" title="Repeat">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/>
+            </svg>
+          </button>
+        </div>
+        <!-- Progress bar -->
+        <div class="flex items-center gap-2 w-full text-xs dark:text-gray-400 text-gray-500">
+          <span id="current-time">0:00</span>
+          <input id="progress-bar" type="range" min="0" max="100" value="0"
+            class="flex-1 accent-brand h-1 rounded-full cursor-pointer"
+            oninput="seekTrack(this.value)"/>
+          <span id="total-time">3:45</span>
+        </div>
+      </div>
+
+      <!-- Right: volume -->
+      <div class="hidden md:flex items-center gap-2 w-36 shrink-0 justify-end">
+        <svg class="w-4 h-4 dark:text-gray-400 text-gray-400 shrink-0" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+        </svg>
+        <input type="range" min="0" max="100" value="70"
+          class="volume flex-1 accent-brand h-1 rounded-full cursor-pointer"
+          oninput="setVolume(this.value)"/>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════ JAVASCRIPT ═══════════════════════════ -->
+  <script src="js/index.js"></script>
+</body>
+</html>
